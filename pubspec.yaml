@@ -41,6 +41,8 @@ dependencies:
   firebase_auth:
   cloud_firestore:
   flutter_dotenv: ^5.1.0
+  shared_preferences:
+  provider:
 dev_dependencies:
   flutter_test:
     sdk: flutter

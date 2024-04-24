@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/auth/auth.dart';
+import 'package:todo/firebase/firebase_functions.dart';
 import 'package:todo/home/tabs/settings_tab.dart';
 import 'package:todo/home/tabs/tasks_tab.dart';
+import 'package:todo/provider/my_provider.dart';
 
 import 'add_task_bottom_sheet.dart';
 
@@ -17,18 +21,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider=Provider.of<MyProvider>(context);
     return Scaffold(
       extendBody: true,
       backgroundColor: Color(0xffdfecdb),
       appBar: AppBar(
         backgroundColor: Colors.blue,
         title: Text(
-          "ToDo",
+          "ToDo${provider.userModel?.userName}",
           style: TextStyle(
             color: Colors.white,
             fontSize: 30,
           ),
         ),
+        actions: [
+          IconButton(onPressed: (){
+            FirebaseFunctions.logOut();
+            Navigator.pushNamedAndRemoveUntil(context, AuthScreen.routeName, (route) => false);
+
+          },
+              icon: Icon(Icons.logout,color: Colors.white,)
+          ),
+        ],
       ),
       body:tabs[index] ,
       bottomNavigationBar: BottomAppBar(
